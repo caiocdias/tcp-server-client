@@ -25,8 +25,13 @@ int main(int argc, char* argv[]) {
     else {
         // Modo cliente
         TCPClient client;
-        std::string serverAddress = "127.0.0.1";
-        int port = 8080;
+        std::cout << "Entre com o endereço do servidor." << std::endl;
+        std::string serverAddress;
+        std::cin >> serverAddress;
+
+        std::cout << "Entre com a porta do servidor." << std::endl;
+        int port;
+        std::cin >> port;
 
         if (client.connectToServer(serverAddress, port)) {
             std::cout << "Conectado ao servidor em " << serverAddress << ":" << port << std::endl;
