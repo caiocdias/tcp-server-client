@@ -16,6 +16,7 @@ private:
 	int serverSocket;
 	bool isRunning;
 
+	void handleClient(int clientSocket);
 	bool createSocket();
 	bool bindSocket(int port);
 	bool listenSocket();

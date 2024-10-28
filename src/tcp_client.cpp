@@ -1,21 +1,23 @@
 #include "tcp_client.h"
 #include "platform/common/socket_util.h"
 #include <iostream>
-#include <cstring>
+#include <string>
+#include <thread>
+#include <atomic>
 
 #ifdef _WIN32
-#include <winsock2.h> 
+#include <winsock2.h>
 #else
-#include <sys/socket.h>  
-#include <arpa/inet.h>  
-#include <unistd.h>   
+#include <sys/socket.h>
+#include <arpa/inet.h>
+#include <unistd.h>
 #endif
 
 TCPClient::TCPClient() : clientSocket(-1), isConnected(false) {
 }
 
 TCPClient::~TCPClient() {
-    disconnect();  // Garante que o socket é fechado ao destruir a instância
+    disconnect();
 }
 
 bool TCPClient::connectToServer(const std::string& address, int port) {
@@ -74,7 +76,46 @@ std::string TCPClient::receiveMessage() {
         return "";
     }
 
-    buffer[bytesReceived] = '\0';  // Garante que o buffer termina com null
-    std::cout << "Mensagem recebida: " << buffer << std::endl;
+    buffer[bytesReceived] = '\0';
     return std::string(buffer);
+}
+
+void TCPClient::chatLoop() {
+    std::atomic<bool> running(true);
+
+    std::thread receiveThread([&]() {
+        while (running && isConnected) {
+            std::string receivedMessage = receiveMessage();
+            if (receivedMessage.empty()) {
+                running = false;
+                break;
+            }
+            std::cout << "\nServidor: " << receivedMessage << "\nDigite uma mensagem: ";
+            std::cout.flush();
+        }
+        });
+
+    while (running && isConnected) {
+        std::cout << "Digite uma mensagem: ";
+        std::string message;
+        std::getline(std::cin, message);
+
+        if (message == "exit") {
+            running = false;
+            break;
+        }
+
+        if (!sendMessage(message)) {
+            std::cerr << "Erro ao enviar mensagem. Encerrando..." << std::endl;
+            running = false;
+            break;
+        }
+    }
+
+    running = false;
+    if (receiveThread.joinable()) {
+        receiveThread.join();
+    }
+
+    disconnect();
 }

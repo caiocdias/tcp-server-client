@@ -2,8 +2,11 @@
 #include "tcp_server.h"
 #include "platform/common/socket_util.h"
 #include <iostream>
+#include <locale>
 
 int main(int argc, char* argv[]) {
+    setlocale(LC_ALL, "Portuguese");
+
     if (!SocketUtil::Initialize()) {
         std::cerr << "Erro ao inicializar o sistema de sockets." << std::endl;
         return -1;
@@ -23,28 +26,19 @@ int main(int argc, char* argv[]) {
     }
     else {
         TCPClient client;
-        std::cout << "Entre com o endereço do servidor." << std::endl;
+
+        std::cout << "Entre com o endereço do servidor: ";
         std::string serverAddress;
         std::cin >> serverAddress;
 
-        std::cout << "Entre com a porta do servidor." << std::endl;
+        std::cout << "Entre com a porta do servidor: ";
         int port;
         std::cin >> port;
 
         if (client.connectToServer(serverAddress, port)) {
             std::cout << "Conectado ao servidor em " << serverAddress << ":" << port << std::endl;
 
-            std::string message = "Olá, servidor!";
-            if (client.sendMessage(message)) {
-                std::cout << "Mensagem enviada ao servidor: " << message << std::endl;
-            }
-
-            std::string response = client.receiveMessage();
-            if (!response.empty()) {
-                std::cout << "Resposta do servidor: " << response << std::endl;
-            }
-
-            client.disconnect();
+            client.chatLoop();
         }
         else {
             std::cerr << "Falha ao conectar ao servidor." << std::endl;

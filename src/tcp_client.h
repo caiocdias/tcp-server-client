@@ -11,6 +11,7 @@ public:
 	bool connectToServer(const std::string& address, int port);
 	void disconnect();
 	bool sendMessage(const std::string& message);
+	void chatLoop();
 	std::string receiveMessage();
 
 private:
