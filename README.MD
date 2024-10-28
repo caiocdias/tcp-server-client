@@ -1,83 +1,83 @@
 
-# Projeto Cliente-Servidor TCP em C++
+# TCP Client-Server Project in C++
 
-Este projeto é uma implementação de um sistema de cliente e servidor TCP em C++ usando sockets. Ele permite que o cliente se conecte ao servidor e troque mensagens interativas até que o usuário encerre a conexão.
+This project is an implementation of a TCP client-server system in C++ using sockets. It allows the client to connect to the server and exchange interactive messages until the user ends the connection.
 
-## Funcionalidades
+## Features
 
-- **Servidor TCP**: Escuta em uma porta especificada, aceita conexões de clientes e permite que o servidor envie mensagens para o cliente.
-- **Cliente TCP**: Conecta-se ao servidor e entra em um loop interativo onde pode enviar e receber mensagens.
-- **Comunicação Multiplataforma**: Implementação de sockets específica para Windows e Linux, facilitando a compatibilidade multiplataforma.
+- **TCP Server**: Listens on a specified port, accepts client connections, and allows the server to send messages to the client.
+- **TCP Client**: Connects to the server and enters an interactive loop where it can send and receive messages.
+- **Cross-Platform Communication**: Platform-specific socket implementations for Windows and Linux, ensuring cross-platform compatibility.
 
-## Requisitos
+## Requirements
 
-- C++17 ou superior
-- CMake 3.10 ou superior
-- Biblioteca de Sockets (Winsock para Windows e POSIX para Linux)
+- C++17 or higher
+- CMake 3.10 or higher
+- Sockets library (Winsock for Windows and POSIX for Linux)
 
-## Compilação e Execução
+## Compilation and Execution
 
-### Compilar o Projeto
+### Compiling the Project
 
-1. Clone o repositório:
+1. Clone the repository:
    ```bash
-   git clone <link-do-repositorio>
-   cd <nome-do-repositorio>
+   git clone <repository-link>
+   cd <repository-name>
    ```
 
-2. Compile o projeto com CMake:
+2. Build the project with CMake:
    ```bash
    cmake -S . -B build
    cmake --build build
    ```
 
-### Executar o Servidor
+### Running the Server
 
-Para iniciar o servidor:
+To start the server:
 ```bash
 ./build/tcp_project server
 ```
 
-### Executar o Cliente
+### Running the Client
 
-Para iniciar o cliente:
+To start the client:
 ```bash
 ./build/tcp_project
 ```
 
-Ao iniciar o cliente, ele solicitará o endereço IP do servidor e a porta para conectar.
+When starting the client, it will prompt for the server's IP address and port to connect.
 
-## Como Usar
+## Usage
 
-1. **Iniciar o Servidor**: Execute o servidor com o comando acima. O servidor ficará aguardando conexões de clientes.
-2. **Iniciar o Cliente**: Execute o cliente e forneça o endereço e a porta do servidor para iniciar a comunicação.
-3. **Interação Cliente-Servidor**: O cliente pode enviar mensagens digitando-as no terminal, e o servidor pode responder. A comunicação continua até que o cliente ou o servidor encerre a conexão.
+1. **Starting the Server**: Run the server using the command above. The server will wait for client connections.
+2. **Starting the Client**: Run the client and provide the server's address and port to initiate communication.
+3. **Client-Server Interaction**: The client can send messages by typing them in the terminal, and the server can respond. Communication continues until either the client or the server closes the connection.
 
-## Exemplos de Comandos
+## Command Examples
 
-- **Enviar mensagem do cliente ao servidor**: No cliente, digite uma mensagem e pressione `Enter` para enviá-la ao servidor.
-- **Enviar resposta do servidor**: No servidor, digite uma resposta e pressione `Enter` para enviá-la ao cliente.
+- **Send a message from client to server**: On the client, type a message and press `Enter` to send it to the server.
+- **Send a response from server to client**: On the server, type a response and press `Enter` to send it to the client.
 
-## Notas de Implementação
+## Implementation Notes
 
-- A implementação utiliza threads para gerenciar as conexões e permitir comunicação contínua e simultânea entre o cliente e o servidor.
-- As funções de sockets são abstraídas na `SocketUtil` para garantir que a implementação funcione tanto em Windows quanto em Linux.
+- The implementation uses threads to manage connections and enable continuous, simultaneous communication between the client and server.
+- Socket functions are abstracted in `SocketUtil` to ensure the implementation works on both Windows and Linux.
 
-## Estrutura do Código
+## Code Structure
 
-- **main.cpp**: Ponto de entrada do programa. Inicializa o cliente ou servidor com base nos argumentos passados.
-- **TCPClient**: Implementa a funcionalidade do cliente TCP, permitindo conexão, envio e recebimento de mensagens.
-- **TCPServer**: Implementa a funcionalidade do servidor TCP, permitindo escutar uma porta, aceitar conexões e responder ao cliente.
-- **SocketUtil**: Contém funções para operações de socket (conectar, enviar, receber, etc.) implementadas de forma específica para Windows e Linux.
+- **main.cpp**: The program's entry point. Initializes the client or server based on the provided arguments.
+- **TCPClient**: Implements the client TCP functionality, enabling connection, sending, and receiving messages.
+- **TCPServer**: Implements the server TCP functionality, allowing it to listen on a port, accept connections, and respond to the client.
+- **SocketUtil**: Contains functions for socket operations (connect, send, receive, etc.) with platform-specific implementations for Windows and Linux.
 
-## Contribuição
+## Contribution
 
-1. Faça um fork do projeto.
-2. Crie uma branch para sua feature (`git checkout -b feature/NovaFeature`).
-3. Commit suas mudanças (`git commit -m 'Adiciona NovaFeature'`).
-4. Faça um push para a branch (`git push origin feature/NovaFeature`).
-5. Abra um Pull Request.
+1. Fork the project.
+2. Create a branch for your feature (`git checkout -b feature/NewFeature`).
+3. Commit your changes (`git commit -m 'Add NewFeature'`).
+4. Push to the branch (`git push origin feature/NewFeature`).
+5. Open a Pull Request.
 
-## Licença
+## License
 
-Este projeto é licenciado sob a licença MIT. Consulte o arquivo [LICENSE](LICENSE) para mais informações.
+This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more information.
