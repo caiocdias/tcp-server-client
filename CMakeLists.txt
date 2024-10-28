@@ -13,21 +13,22 @@ include_directories(${PROJECT_SOURCE_DIR}/src)
 # Identificar o sistema operacional e definir as variáveis específicas
 if (WIN32)
     add_definitions(-DPLATFORM_WINDOWS)
-    set(SOURCES
-        src/main.cpp
-        src/tcp_client.cpp
-        src/tcp_server.cpp
-        src/platform/windows/socket_util.cpp
+    file(GLOB SOURCES
+        src/*.cpp
+        src/platform/windows/*.cpp
     )
 elseif (UNIX)
     add_definitions(-DPLATFORM_LINUX)
-    set(SOURCES
-        src/main.cpp
-        src/tcp_client.cpp
-        src/tcp_server.cpp
-        src/platform/linux/socket_util.cpp
+    file(GLOB SOURCES
+        src/*.cpp
+        src/platform/linux/*.cpp
     )
 endif()
 
 # Adicionar o executável principal
 add_executable(tcp_project ${SOURCES})
+
+# Linkar a biblioteca ws2_32 no Windows para suportar sockets
+if (WIN32)
+    target_link_libraries(tcp_project ws2_32)
+endif()
