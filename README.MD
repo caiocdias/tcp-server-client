@@ -21,8 +21,8 @@ This project is an implementation of a TCP client-server system in C++ using soc
 
 1. Clone the repository:
    ```bash
-   git clone <repository-link>
-   cd <repository-name>
+   git clone https://github.com/caiocdias/tcp-server-client
+   cd tcp-server-client
    ```
 
 2. Build the project with CMake:
