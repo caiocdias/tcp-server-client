@@ -3,26 +3,6 @@
 
 Este projeto é uma implementação de um sistema de cliente e servidor TCP em C++ usando sockets. Ele permite que o cliente se conecte ao servidor e troque mensagens interativas até que o usuário encerre a conexão.
 
-## Estrutura do Projeto
-
-```plaintext
-.
-??? CMakeLists.txt           # Arquivo de configuração do CMake
-??? main.cpp                 # Arquivo principal que inicializa o cliente ou o servidor
-??? src/
-?   ??? tcp_client.cpp       # Implementação da classe TCPClient
-?   ??? tcp_client.h         # Cabeçalho da classe TCPClient
-?   ??? tcp_server.cpp       # Implementação da classe TCPServer
-?   ??? tcp_server.h         # Cabeçalho da classe TCPServer
-?   ??? platform/
-?       ??? common/
-?       ?   ??? socket_util.h  # Interface comum de funções de socket
-?       ??? windows/
-?       ?   ??? socket_util.cpp # Implementação de socket para Windows
-?       ??? linux/
-?           ??? socket_util.cpp # Implementação de socket para Linux
-```
-
 ## Funcionalidades
 
 - **Servidor TCP**: Escuta em uma porta especificada, aceita conexões de clientes e permite que o servidor envie mensagens para o cliente.
