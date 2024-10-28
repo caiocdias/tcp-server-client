@@ -10,8 +10,7 @@ int main(int argc, char* argv[]) {
     }
 
     if (argc > 1 && std::string(argv[1]) == "server") {
-        // Modo servidor
-        int port = 8080; // Porta padrão, você pode ajustar ou passar como argumento
+        int port = 8080;
         TCPServer server;
         if (server.start(port)) {
             std::cout << "Servidor iniciado na porta " << port << ". Aguardando conexões..." << std::endl;
@@ -23,7 +22,6 @@ int main(int argc, char* argv[]) {
         }
     }
     else {
-        // Modo cliente
         TCPClient client;
         std::cout << "Entre com o endereço do servidor." << std::endl;
         std::string serverAddress;
@@ -36,13 +34,11 @@ int main(int argc, char* argv[]) {
         if (client.connectToServer(serverAddress, port)) {
             std::cout << "Conectado ao servidor em " << serverAddress << ":" << port << std::endl;
 
-            // Enviar uma mensagem de exemplo ao servidor
             std::string message = "Olá, servidor!";
             if (client.sendMessage(message)) {
                 std::cout << "Mensagem enviada ao servidor: " << message << std::endl;
             }
 
-            // Receber a resposta do servidor
             std::string response = client.receiveMessage();
             if (!response.empty()) {
                 std::cout << "Resposta do servidor: " << response << std::endl;
