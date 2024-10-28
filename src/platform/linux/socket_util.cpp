@@ -8,12 +8,10 @@
 
 namespace SocketUtil {
     bool Initialize() {
-        // No Linux, não precisamos de inicialização especial
         return true;
     }
 
     void Cleanup() {
-        // No Linux, não precisamos de uma limpeza especial
     }
 
     int CreateSocket() {
@@ -64,6 +62,26 @@ namespace SocketUtil {
             return false;
         }
         return true;
+    }
+
+    bool SendData(int socket, const std::string& data) {
+        int bytesSent = send(socket, data.c_str(), data.size(), 0);
+        if (bytesSent == -1) {
+            std::cerr << "Erro ao enviar dados." << std::endl;
+            return false;
+        }
+        return true;
+    }
+
+    std::string ReceiveData(int socket) {
+        char buffer[1024];
+        int bytesReceived = recv(socket, buffer, sizeof(buffer) - 1, 0);
+        if (bytesReceived <= 0) {
+            std::cerr << "Erro ao receber dados ou conexão encerrada." << std::endl;
+            return "";
+        }
+        buffer[bytesReceived] = '\0';
+        return std::string(buffer);
     }
 
     void CloseSocket(int socket) {
